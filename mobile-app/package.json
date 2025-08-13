@@ -1,0 +1,12 @@
+{
+  "name": "gisabo-mobile",
+  "version": "1.0.0",
+  "main": "App.tsx",
+  "scripts": {
+    "start": "node start-mobile.js",
+    "dev": "node start-mobile.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}
