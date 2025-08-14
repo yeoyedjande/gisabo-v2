@@ -69,6 +69,14 @@ docker-compose up -d
 log_info "Attente du démarrage des services..."
 sleep 30
 
+log_info "Configuration de la base de données..."
+if [ -f "./setup-database.sh" ]; then
+    chmod +x ./setup-database.sh
+    ./setup-database.sh production
+else
+    log_warn "Script setup-database.sh non trouvé, saut de la configuration"
+fi
+
 # Vérifier que l'application répond
 log_info "Vérification de l'état de l'application..."
 if curl -f http://localhost:5000/health &> /dev/null; then

@@ -33,12 +33,20 @@ services:
       - POSTGRES_DB=${PGDATABASE:-gisabo}
       - POSTGRES_USER=${PGUSER:-gisabo_user}
       - POSTGRES_PASSWORD=${PGPASSWORD}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database_export.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database_export.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./db-init:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PGUSER:-gisabo_user} -d ${PGDATABASE:-gisabo}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
     networks:
       - gisabo-network
 
