@@ -8,8 +8,8 @@ Pour que votre application GISABO fonctionne correctement sur Digital Ocean App 
 
 ```bash
 # CinetPay Production
-CINETPAY_API_KEY=votre_cle_api_cinetpay_production
-CINETPAY_SITE_ID=votre_site_id_cinetpay
+CINETPAY_API_KEY=69528412765f9bbf5cb3ac6.86470919
+CINETPAY_SITE_ID=105897933
 CINETPAY_ENVIRONMENT=production
 ```
 
@@ -40,8 +40,8 @@ CINETPAY_ENVIRONMENT=production
 
 ```bash
 # CinetPay Configuration (OBLIGATOIRE)
-CINETPAY_API_KEY=votre_cle_api_production_cinetpay
-CINETPAY_SITE_ID=123456
+CINETPAY_API_KEY=69528412765f9bbf5cb3ac6.86470919
+CINETPAY_SITE_ID=105897933
 CINETPAY_ENVIRONMENT=production
 ```
 

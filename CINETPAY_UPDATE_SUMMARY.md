@@ -50,8 +50,8 @@ Dans **App Settings → Environment Variables**, ajoutez **obligatoirement** :
 
 ```bash
 # CinetPay Configuration (NOUVELLES VARIABLES)
-CINETPAY_API_KEY=votre_cle_api_production_cinetpay
-CINETPAY_SITE_ID=123456
+CINETPAY_API_KEY=69528412765f9bbf5cb3ac6.86470919
+CINETPAY_SITE_ID=105897933
 CINETPAY_ENVIRONMENT=production
 ```
 
