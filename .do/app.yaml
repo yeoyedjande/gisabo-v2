@@ -5,7 +5,8 @@ services:
   github:
     repo: votre-username/gisabo-platform
     branch: main
-  run_command: npm start
+  build_command: npm ci && npm run build
+  run_command: node start-prod.js
   environment_slug: node-js
   instance_count: 1
   instance_size_slug: basic-xxs

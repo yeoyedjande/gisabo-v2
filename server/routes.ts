@@ -102,6 +102,31 @@ const authenticateToken = async (req: any, res: any, next: any) => {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health check endpoint for deployment monitoring - Must be first!
+  app.get("/api/health", async (req, res) => {
+    try {
+      // Test database connection
+      const testResult = await storage.getServices();
+      
+      res.status(200).json({
+        status: "healthy",
+        timestamp: new Date().toISOString(),
+        database: "connected",
+        services: Array.isArray(testResult) ? "operational" : "warning",
+        version: "1.0.0",
+        environment: process.env.NODE_ENV || "development"
+      });
+    } catch (error) {
+      console.error("Health check failed:", error);
+      res.status(503).json({
+        status: "unhealthy",
+        timestamp: new Date().toISOString(),
+        database: "disconnected",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
   // Auth routes
   app.post("/api/auth/register", async (req, res) => {
     try {
@@ -1514,30 +1539,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 </html>`);
   });
 
-  // Health check endpoint for deployment monitoring
-  app.get("/health", async (req, res) => {
-    try {
-      // Test database connection
-      const testResult = await storage.getServices();
-      
-      res.status(200).json({
-        status: "healthy",
-        timestamp: new Date().toISOString(),
-        database: "connected",
-        services: Array.isArray(testResult) ? "operational" : "warning",
-        version: "1.0.0",
-        environment: process.env.NODE_ENV || "development"
-      });
-    } catch (error) {
-      console.error("Health check failed:", error);
-      res.status(503).json({
-        status: "unhealthy",
-        timestamp: new Date().toISOString(),
-        database: "disconnected",
-        error: error instanceof Error ? error.message : "Unknown error"
-      });
-    }
-  });
+
 
   const httpServer = createServer(app);
   return httpServer;
