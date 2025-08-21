@@ -1,50 +1,142 @@
-# Variables d'environnement - Gisabo Platform
+# 🔐 Variables d'Environnement pour GISABO - Digital Ocean
 
-## Variables Square Payment
+## 📋 Liste Complète des Variables Requises
 
-### Serveur (Backend)
-- `SQUARE_ACCESS_TOKEN` - Token d'accès Square API
-- `SQUARE_APPLICATION_ID` - ID de l'application Square
-- `SQUARE_ENVIRONMENT` - Environnement (sandbox/production)
-- `SQUARE_LOCATION_ID` - ID de la localisation Square
+### 🗄️ Base de Données
+```bash
+# Fournie automatiquement par Digital Ocean Managed Database
+DATABASE_URL=${gisabo-db.DATABASE_URL}
+```
 
-### Client (Frontend)
-- `VITE_SQUARE_APPLICATION_ID` - ID de l'application Square pour le frontend
+### 💳 Square Payment (PRODUCTION)
+```bash
+SQUARE_ACCESS_TOKEN=EAAAl7GQQ-your-production-token-here
+SQUARE_APPLICATION_ID=sq0idp-your-application-id
+SQUARE_LOCATION_ID=L1ABC123DEF456
+SQUARE_ENVIRONMENT=production
 
-## Variables Base de Données
-- `DATABASE_URL` - URL de connexion PostgreSQL
-- `PGDATABASE` - Nom de la base de données
-- `PGHOST` - Hôte de la base de données
-- `PGPASSWORD` - Mot de passe de la base de données
-- `PGPORT` - Port de la base de données
-- `PGUSER` - Utilisateur de la base de données
+# Variables frontend (avec préfixe VITE_)
+VITE_SQUARE_APPLICATION_ID=sq0idp-your-application-id
+VITE_SQUARE_LOCATION_ID=L1ABC123DEF456
+```
 
-## Variables Email
-- `SENDGRID_API_KEY` - Clé API SendGrid pour l'envoi d'emails
+### 💰 CinetPay (PRODUCTION - Configuré)
+```bash
+CINETPAY_API_KEY=69528412765f9bbf5cb3ac6.86470919
+CINETPAY_SITE_ID=105897933
+CINETPAY_CURRENCY=XOF
+```
 
-## Variables CinetPay (Paiements Africains)
-- `CINETPAY_API_KEY` - Clé API CinetPay pour les paiements
-- `CINETPAY_SITE_ID` - Identifiant du site CinetPay
-- `CINETPAY_ENVIRONMENT` - Environnement CinetPay (sandbox/production)
+### 🤖 OpenAI (Assistant Gisabo)
+```bash
+OPENAI_API_KEY=sk-your-openai-api-key-here
+```
 
-## Variables Application
-- `JWT_SECRET` - Clé secrète pour les tokens JWT (admin auth)
-- `SESSION_SECRET` - Clé secrète pour les sessions utilisateur
+### 📧 SendGrid (Emails)
+```bash
+SENDGRID_API_KEY=SG.your-sendgrid-api-key-here
+```
 
-## Migration Sandbox → Production
+### 🔐 Sécurité
+```bash
+SESSION_SECRET=votre-session-secret-très-sécurisé-de-64-caractères-minimum
+JWT_SECRET=votre-jwt-secret-pour-les-tokens-authentication
+```
 
-Pour passer en production, modifier uniquement :
+### 🌐 Application
+```bash
+NODE_ENV=production
+PORT=5000
+```
 
-### Square Payment
-1. `SQUARE_ACCESS_TOKEN` - Remplacer par le token de production
-2. `SQUARE_APPLICATION_ID` - Remplacer par l'ID de production
-3. `SQUARE_ENVIRONMENT` - Changer de "sandbox" à "production"
-4. `SQUARE_LOCATION_ID` - Remplacer par l'ID de localisation de production
-5. `VITE_SQUARE_APPLICATION_ID` - Remplacer par l'ID de production
+## 🎯 Configuration dans Digital Ocean App Platform
 
-### CinetPay
-6. `CINETPAY_API_KEY` - Remplacer par la clé API de production
-7. `CINETPAY_SITE_ID` - Remplacer par le site ID de production
-8. `CINETPAY_ENVIRONMENT` - Changer de "sandbox" à "production"
+### Étape 1: Variables Automatiques
+Ces variables sont configurées automatiquement :
+- `DATABASE_URL` : Fournie par la base de données managée
+- `NODE_ENV` : Définie dans app.yaml
+- `PORT` : Définie dans app.yaml
 
-Le code source n'a pas besoin d'être modifié.
+### Étape 2: Variables à Configurer Manuellement
+
+Dans l'interface Digital Ocean App Platform :
+
+1. **Allez dans votre App** → **Settings** → **App-Level Environment Variables**
+
+2. **Ajoutez ces variables une par une :**
+
+#### 💳 Square (À configurer avec vos vrais tokens)
+```
+SQUARE_ACCESS_TOKEN = [votre token production Square]
+SQUARE_APPLICATION_ID = [votre application ID Square] 
+SQUARE_LOCATION_ID = [votre location ID Square]
+VITE_SQUARE_APPLICATION_ID = [même que SQUARE_APPLICATION_ID]
+VITE_SQUARE_LOCATION_ID = [même que SQUARE_LOCATION_ID]
+```
+
+#### 🤖 OpenAI
+```
+OPENAI_API_KEY = [votre clé API OpenAI]
+```
+
+#### 📧 SendGrid
+```
+SENDGRID_API_KEY = [votre clé API SendGrid]
+```
+
+#### 🔐 Sécurité
+```
+SESSION_SECRET = [générez un secret de 64+ caractères]
+JWT_SECRET = [générez un autre secret pour JWT]
+```
+
+### Étape 3: Génération des Secrets
+
+Pour générer des secrets sécurisés :
+
+```bash
+# Session Secret (64 caractères)
+openssl rand -base64 48
+
+# JWT Secret (32 caractères)
+openssl rand -base64 24
+```
+
+## ✅ Vérification Post-Déploiement
+
+### Test des Variables
+L'application affichera dans les logs de démarrage :
+- ✅ Variables critiques détectées
+- ⚠️ Variables manquantes (avec avertissements)
+
+### Endpoints de Test
+- `/health` : Vérification générale
+- `/api/auth/test` : Test des variables d'authentification
+- `/api/payments/test` : Test des intégrations de paiement
+
+## 🚨 Sécurité Important
+
+### ❌ Ne JAMAIS exposer :
+- Tokens de production Square
+- Clés API OpenAI ou SendGrid
+- Secrets de session ou JWT
+- URL de base de données
+
+### ✅ Bonnes Pratiques :
+- Utilisez des secrets différents pour chaque environnement
+- Changez régulièrement les secrets
+- Surveillez les logs pour les tentatives d'accès non autorisé
+- Utilisez des tokens avec permissions minimales nécessaires
+
+## 📞 Support
+
+Si vous rencontrez des problèmes avec les variables d'environnement :
+
+1. **Vérifiez les logs** dans Digital Ocean → App → Runtime Logs
+2. **Testez individuellement** chaque intégration
+3. **Régénérez** les tokens/clés si nécessaire
+4. **Contactez** le support technique de chaque service
+
+---
+
+**Note** : Toutes les variables marquées `[à configurer]` doivent être remplacées par vos vraies valeurs avant le déploiement.

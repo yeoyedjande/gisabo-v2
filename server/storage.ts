@@ -3,6 +3,9 @@ import { db } from "./db";
 import { eq, desc, and } from "drizzle-orm";
 
 export interface IStorage {
+  // Health check
+  healthCheck(): Promise<boolean>;
+  
   // Users
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
@@ -63,6 +66,16 @@ export interface IStorage {
 }
 
 export class DatabaseStorage implements IStorage {
+  async healthCheck(): Promise<boolean> {
+    try {
+      await db.select().from(users).limit(1);
+      return true;
+    } catch (error) {
+      console.error("Database health check failed:", error);
+      return false;
+    }
+  }
+
   async getUser(id: number): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));
     return user || undefined;

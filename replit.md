@@ -4,6 +4,8 @@ GISABO is a cross-border financial platform designed for the African diaspora to
 
 **New Feature: Assistant Gisabo** - An AI-powered chatbot integrated across the platform to provide instant customer support and answer questions about transfers, marketplace, and platform features using OpenAI's GPT-4o model.
 
+**Deployment Ready: Digital Ocean App Platform** - All configuration files prepared for production deployment including database setup, environment variables, health checks, and automated deployment scripts.
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.

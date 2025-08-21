@@ -103,19 +103,33 @@ const authenticateToken = async (req: any, res: any, next: any) => {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Health check endpoint for deployment monitoring - Must be first!
-  app.get("/api/health", async (req, res) => {
+  // Health check endpoint for Digital Ocean App Platform - Must be first!
+  const healthCheckHandler = async (req: Request, res: Response) => {
     try {
       // Test database connection
       const testResult = await storage.getServices();
       
-      res.status(200).json({
-        status: "healthy",
+      // Check environment variables
+      const envCheck = {
+        database: !!process.env.DATABASE_URL,
+        square: !!process.env.SQUARE_ACCESS_TOKEN,
+        openai: !!process.env.OPENAI_API_KEY,
+        cinetpay: !!process.env.CINETPAY_API_KEY,
+        session: !!process.env.SESSION_SECRET
+      };
+      
+      const allChecksPass = Array.isArray(testResult) && Object.values(envCheck).every(check => check);
+      
+      res.status(allChecksPass ? 200 : 503).json({
+        status: allChecksPass ? "healthy" : "degraded",
         timestamp: new Date().toISOString(),
-        database: "connected",
-        services: Array.isArray(testResult) ? "operational" : "warning",
+        database: Array.isArray(testResult) ? "connected" : "warning",
         version: "1.0.0",
-        environment: process.env.NODE_ENV || "development"
+        environment: process.env.NODE_ENV || "development",
+        checks: {
+          database: Array.isArray(testResult) ? "ok" : "error",
+          environment: envCheck
+        }
       });
     } catch (error) {
       console.error("Health check failed:", error);
@@ -126,7 +140,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         error: error instanceof Error ? error.message : "Unknown error"
       });
     }
-  });
+  };
+
+  // Digital Ocean App Platform expects /health endpoint (without /api)
+  app.get("/health", healthCheckHandler);
+  app.get("/api/health", healthCheckHandler);
 
   // Auth routes
   app.post("/api/auth/register", async (req, res) => {

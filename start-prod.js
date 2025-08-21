@@ -22,6 +22,7 @@ const requiredEnvVars = [
   'SQUARE_LOCATION_ID',
   'CINETPAY_API_KEY',
   'CINETPAY_SITE_ID',
+  'OPENAI_API_KEY',
   'SESSION_SECRET'
 ];
 
