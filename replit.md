@@ -2,6 +2,8 @@
 
 GISABO is a cross-border financial platform designed for the African diaspora to access digital financial services globally. The platform combines money transfer services with a marketplace for African products, supporting both web and mobile applications. It serves as a bridge connecting diaspora communities with their home countries, offering secure international transfers and authentic African product purchases.
 
+**New Feature: Assistant Gisabo** - An AI-powered chatbot integrated across the platform to provide instant customer support and answer questions about transfers, marketplace, and platform features using OpenAI's GPT-4o model.
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
@@ -66,6 +68,7 @@ Preferred communication style: Simple, everyday language.
 ## Communication Services
 - **SendGrid**: Email delivery service for transactional emails
 - **SMTP Configuration**: PlanetHoster email service integration
+- **OpenAI API**: GPT-4o integration for Assistant Gisabo chatbot functionality
 
 ## Development and Deployment
 - **Vite**: Build tool and development server for web application
@@ -82,3 +85,4 @@ Preferred communication style: Simple, everyday language.
 - **Exchange Rate Service**: Real-time currency conversion for international transfers
 - **Country/Currency Data**: Support for multiple African countries and currencies
 - **Geographic Services**: Country and location data for transfer destinations
+- **OpenAI GPT-4o**: AI assistant providing contextual support and answering user questions about platform features

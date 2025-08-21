@@ -191,6 +191,14 @@ export const translations = {
         failed: "Échoué"
       }
     },
+    chatbot: {
+      title: "Assistant Gisabo",
+      placeholder: "Tapez votre message...",
+      typing: "Assistant Gisabo tape...",
+      suggestions: "Suggestions :",
+      clear: "Effacer",
+      send: "Envoyer"
+    },
     footer: {
       aboutUs: "À propos de nous",
       aboutText: "GISABO Group connecte la diaspora africaine à travers des solutions financières innovantes et un marketplace authentique.",
@@ -418,6 +426,14 @@ export const translations = {
         completed: "Completed",
         failed: "Failed"
       }
+    },
+    chatbot: {
+      title: "Assistant Gisabo",
+      placeholder: "Type your message...",
+      typing: "Assistant Gisabo is typing...",
+      suggestions: "Suggestions:",
+      clear: "Clear",
+      send: "Send"
     },
     footer: {
       aboutUs: "About Us",

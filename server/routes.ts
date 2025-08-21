@@ -8,6 +8,7 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import { sendTransferConfirmationEmail, sendOrderConfirmationEmail } from "./emailService";
+import { chatWithGisaboAssistant, generateChatSuggestions } from "./openai";
 // Utilisation de l'API REST Square directement
 
 const JWT_SECRET = process.env.JWT_SECRET || "gisabo-admin-secret-key-2024";
@@ -1539,7 +1540,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
 </html>`);
   });
 
+  // Chatbot API Routes - Assistant Gisabo
+  app.post("/api/chat", async (req, res) => {
+    try {
+      const { message, conversationHistory } = req.body;
+      
+      if (!message || typeof message !== 'string') {
+        return res.status(400).json({ message: "Message is required" });
+      }
 
+      const response = await chatWithGisaboAssistant(message, conversationHistory || []);
+      res.json({ response });
+    } catch (error: any) {
+      console.error("Chat error:", error);
+      res.status(500).json({ message: "Erreur lors du traitement de votre message" });
+    }
+  });
+
+  app.get("/api/chat/suggestions", async (req, res) => {
+    try {
+      const suggestions = await generateChatSuggestions();
+      res.json({ suggestions });
+    } catch (error: any) {
+      console.error("Suggestions error:", error);
+      res.status(500).json({ suggestions: [] });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;

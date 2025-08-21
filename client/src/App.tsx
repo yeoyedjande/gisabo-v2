@@ -21,6 +21,7 @@ import PaymentSuccess from "@/pages/payment-success";
 import AdminLogin from "@/pages/admin-login";
 import AdminSidebar from "@/pages/admin-sidebar-fixed";
 import NotFound from "@/pages/not-found";
+import Chatbot from "@/components/chatbot";
 import { useEffect } from "react";
 import { apiRequest } from "./lib/queryClient";
 
@@ -70,6 +71,7 @@ function App() {
         />
         <Toaster />
         <Router />
+        <Chatbot />
       </TooltipProvider>
     </QueryClientProvider>
   );
