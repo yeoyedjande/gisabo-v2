@@ -58,7 +58,7 @@ app.use((req, res, next) => {
   } else {
     //serveStatic(app);
     const fs = require('fs');
-    if (fs.existsSync('./server/public')) {
+    if (fs.existsSync('./public')) {
       serveStatic(app);
     }
     
