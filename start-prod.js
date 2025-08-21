@@ -79,12 +79,22 @@ async function runDatabaseMigrations() {
 
 // Fonction pour créer les dossiers nécessaires
 function createDirectories() {
-  const dirs = ['uploads/products', 'uploads/services'];
+  const dirs = ['uploads/products', 'uploads/services', 'uploads/temp'];
   
   dirs.forEach(dir => {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
       console.log(`📁 [SETUP] Dossier créé: ${dir}`);
+    }
+  });
+  
+  // Vérifier que les assets statiques sont présents
+  const staticDirs = ['attached_assets', 'client/public'];
+  staticDirs.forEach(dir => {
+    if (fs.existsSync(dir)) {
+      console.log(`✅ [ASSETS] Dossier trouvé: ${dir}`);
+    } else {
+      console.warn(`⚠️ [ASSETS] Dossier manquant: ${dir}`);
     }
   });
 }

@@ -5,7 +5,13 @@ services:
   github:
     repo: yeoyedjande/gisabo-v2
     branch: main
-  build_command: npm ci && npm run build
+  build_command: |
+    npm ci
+    npm run build
+    echo "📦 Copie des assets et images..."
+    cp -r uploads dist/ 2>/dev/null || echo "Dossier uploads sera créé au runtime"
+    cp -r attached_assets dist/assets/ 2>/dev/null || echo "Assets intégrés dans le build Vite"
+    echo "✅ Build et assets prêts"
   run_command: node start-prod.js
   environment_slug: node-js
   instance_count: 1

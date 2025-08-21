@@ -103,6 +103,10 @@ const authenticateToken = async (req: any, res: any, next: any) => {
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Serve static files for uploads (images)
+  app.use('/uploads', express.static('uploads'));
+  app.use('/assets', express.static('attached_assets'));
+  
   // Health check endpoint for Digital Ocean App Platform - Must be first!
   const healthCheckHandler = async (req: Request, res: Response) => {
     try {
