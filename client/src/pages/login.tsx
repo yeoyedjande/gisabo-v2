@@ -24,7 +24,12 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      const response = await apiRequest("POST", "/api/auth/login", formData);
+      // Map email to username for API compatibility
+      const loginData = {
+        username: formData.email,
+        password: formData.password
+      };
+      const response = await apiRequest("POST", "/api/auth/login", loginData);
       const data = await response.json();
       
       setAuthToken(data.token);
