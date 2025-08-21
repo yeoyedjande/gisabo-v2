@@ -35,8 +35,9 @@ export default function Dashboard() {
     queryKey: ["/api/auth/me"],
     enabled: authenticated,
     queryFn: async () => {
+      const headers = getAuthHeaders();
       const response = await fetch("/api/auth/me", {
-        headers: getAuthHeaders(),
+        headers: headers || {},
       });
       if (!response.ok) throw new Error("Failed to fetch user");
       const data = await response.json();
@@ -49,8 +50,9 @@ export default function Dashboard() {
       queryKey: ["/api/transfers"],
       enabled: authenticated,
       queryFn: async () => {
+        const headers = getAuthHeaders();
         const response = await fetch("/api/transfers", {
-          headers: getAuthHeaders(),
+          headers: headers || {},
         });
         if (!response.ok) throw new Error("Failed to fetch transfers");
         return response.json();
@@ -62,8 +64,9 @@ export default function Dashboard() {
     queryKey: ["/api/orders"],
     enabled: authenticated,
     queryFn: async () => {
+      const headers = getAuthHeaders();
       const response = await fetch("/api/orders", {
-        headers: getAuthHeaders(),
+        headers: headers || {},
       });
       if (!response.ok) throw new Error("Failed to fetch orders");
       return response.json();

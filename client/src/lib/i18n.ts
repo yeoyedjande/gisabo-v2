@@ -161,6 +161,36 @@ export const translations = {
       continue: "Continuer",
       recipientInfo: "Informations du destinataire",
     },
+    dashboard: {
+      title: "Tableau de bord",
+      greeting: "Bienvenue sur votre tableau de bord",
+      stats: {
+        totalSent: "Total envoyé",
+        monthlyTransfers: "Transferts mensuels",
+        orders: "Commandes"
+      },
+      quickActions: {
+        newTransfer: "Nouveau transfert", 
+        exploreMarketplace: "Explorer le marketplace",
+        mobileRecharge: "Recharge mobile"
+      },
+      tabs: {
+        transfers: "Transferts",
+        orders: "Commandes"
+      },
+      transfers: {
+        title: "Historique des transferts",
+        filters: "Filtres",
+        new: "Nouveau transfert",
+        transferTo: "Transfert vers",
+        viewAll: "Voir tout"
+      },
+      status: {
+        pending: "En attente",
+        completed: "Terminé",
+        failed: "Échoué"
+      }
+    },
     footer: {
       aboutUs: "À propos de nous",
       aboutText: "GISABO Group connecte la diaspora africaine à travers des solutions financières innovantes et un marketplace authentique.",
@@ -358,6 +388,36 @@ export const translations = {
       totalToPay: "Total to pay",
       continue: "Continue",
       recipientInfo: "Recipient information",
+    },
+    dashboard: {
+      title: "Dashboard",
+      greeting: "Welcome to your dashboard",
+      stats: {
+        totalSent: "Total sent",
+        monthlyTransfers: "Monthly transfers",
+        orders: "Orders"
+      },
+      quickActions: {
+        newTransfer: "New transfer", 
+        exploreMarketplace: "Explore marketplace",
+        mobileRecharge: "Mobile recharge"
+      },
+      tabs: {
+        transfers: "Transfers",
+        orders: "Orders"
+      },
+      transfers: {
+        title: "Transfer history",
+        filters: "Filters",
+        new: "New transfer",
+        transferTo: "Transfer to",
+        viewAll: "View all"
+      },
+      status: {
+        pending: "Pending",
+        completed: "Completed",
+        failed: "Failed"
+      }
     },
     footer: {
       aboutUs: "About Us",
