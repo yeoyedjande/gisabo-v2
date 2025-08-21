@@ -130,7 +130,7 @@ async function main() {
     
     // Attendre un peu pour que la base de données soit prête (Digital Ocean)
     console.log('⏳ [SETUP] Attente de la disponibilité de la base de données...');
-    await new Promise(resolve => setTimeout(resolve, 10000));
+    await new Promise(resolve => setTimeout(resolve, 5000));
     
     // Exécuter les migrations de base de données
     await runDatabaseMigrations();

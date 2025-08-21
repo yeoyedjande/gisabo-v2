@@ -1,0 +1,57 @@
+# Variables d'Environnement MINIMALES pour Digital Ocean App Platform
+# Copiez-collez ces variables une par une dans l'interface Digital Ocean
+
+# === OBLIGATOIRES (Application ne fonctionne pas sans ces 3) ===
+
+OPENAI_API_KEY=sk-votre-clé-openai-ici-remplacez-cette-valeur
+SESSION_SECRET=générez-un-secret-très-long-de-64-caractères-minimum-pour-la-sécurité-des-sessions
+JWT_SECRET=générez-un-autre-secret-de-32-caractères-minimum-pour-les-tokens
+
+# === OPTIONNELLES (Peuvent être ajoutées plus tard) ===
+
+# Pour les emails (SendGrid)
+SENDGRID_API_KEY=SG.votre-clé-sendgrid-si-vous-en-avez-une
+
+# Pour les paiements Square (si vous avez un compte Square)
+SQUARE_ACCESS_TOKEN=votre-token-square-production
+SQUARE_APPLICATION_ID=votre-app-id-square
+SQUARE_LOCATION_ID=votre-location-square
+VITE_SQUARE_APPLICATION_ID=votre-app-id-square
+VITE_SQUARE_LOCATION_ID=votre-location-square
+
+# === AUTOMATIQUES (Digital Ocean les configure automatiquement) ===
+# Ne les ajoutez PAS manuellement, elles sont gérées par Digital Ocean
+
+# DATABASE_URL=${gisabo-db.DATABASE_URL}  # Auto-configurée
+# NODE_ENV=production  # Auto-configurée  
+# PORT=5000  # Auto-configurée
+
+# === PRECONFIGURÉES (Déjà dans le code, ne les ajoutez pas) ===
+# Ces variables sont déjà codées en dur dans l'application
+
+# CINETPAY_API_KEY=69528412765f9bbf5cb3ac6.86470919  # Déjà configurée
+# CINETPAY_SITE_ID=105897933  # Déjà configurée
+# CINETPAY_CURRENCY=XOF  # Déjà configurée
+
+# =============================================================================
+# COMMENT GÉNÉRER LES SECRETS SÉCURISÉS :
+# =============================================================================
+
+# Pour SESSION_SECRET (64 caractères) - Exécutez dans un terminal :
+# node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+
+# Pour JWT_SECRET (32 caractères) - Exécutez dans un terminal :
+# node -e "console.log(require('crypto').randomBytes(16).toString('hex'))"
+
+# Ou utilisez un générateur en ligne : https://www.uuidgenerator.net/api/version4
+
+# =============================================================================
+# EXEMPLE DE CONFIGURATION MINIMALE POUR COMMENCER :
+# =============================================================================
+
+# OPENAI_API_KEY=sk-proj-abcd1234yourrealkeyhere
+# SESSION_SECRET=a1b2c3d4e5f6789012345678901234567890abcdef1234567890123456789012
+# JWT_SECRET=a1b2c3d4e5f6789012345678901234567890abcd
+
+# Avec ces 3 variables, l'application GISABO fonctionnera complètement !
+# Vous pourrez ajouter les autres plus tard selon vos besoins.

@@ -5,12 +5,7 @@ services:
   github:
     repo: yeoyedjande/gisabo-v2
     branch: main
-  build_command: |
-    echo "🚀 Installation des dépendances..."
-    npm ci --production=false
-    echo "🏗️ Construction de l'application..."
-    npm run build
-    echo "✅ Build terminé avec succès"
+  build_command: npm ci && npm run build
   run_command: node start-prod.js
   environment_slug: node-js
   instance_count: 1
@@ -20,9 +15,9 @@ services:
   - path: /
   health_check:
     http_path: /health
-    initial_delay_seconds: 180
-    period_seconds: 10
-    timeout_seconds: 5
+    initial_delay_seconds: 120
+    period_seconds: 30
+    timeout_seconds: 10
     success_threshold: 1
     failure_threshold: 3
   envs:
@@ -30,12 +25,10 @@ services:
     value: production
   - key: PORT
     value: "5000"
-  - key: SQUARE_ENVIRONMENT
-    value: production
 
 databases:
 - name: gisabo-db
   engine: PG
   version: "15"
-  size: basic-xxs
+  size: db-s-dev-database
   num_nodes: 1
