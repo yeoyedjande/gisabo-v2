@@ -161,8 +161,10 @@ export default function Chatbot({ className }: ChatbotProps) {
 
   return (
     <Card className={cn(
-      "fixed bottom-6 right-6 w-80 h-96 shadow-xl",
-      "flex flex-col z-50",
+      "fixed bottom-4 right-4 w-96 h-[500px] shadow-xl",
+      "flex flex-col z-50 max-w-[calc(100vw-2rem)]",
+      "sm:bottom-6 sm:right-6 sm:w-96",
+      "max-sm:w-[calc(100vw-2rem)] max-sm:h-[70vh]",
       className
     )}>
       <CardHeader className="flex flex-row items-center justify-between p-4 pb-2">
@@ -189,28 +191,30 @@ export default function Chatbot({ className }: ChatbotProps) {
         </div>
       </CardHeader>
 
-      <CardContent className="flex-1 flex flex-col p-4 pt-0">
+      <CardContent className="flex-1 flex flex-col p-4 pt-0 overflow-hidden">
         <ScrollArea className="flex-1 pr-2">
           <div className="space-y-3">
             {messages.map((message) => (
               <div
                 key={message.id}
                 className={cn(
-                  "flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
+                  "flex flex-col gap-2 rounded-lg px-3 py-2 text-sm break-words",
                   message.role === 'user'
-                    ? "ml-auto bg-blue-600 text-white"
-                    : "bg-gray-100 dark:bg-gray-800"
+                    ? "ml-auto max-w-[85%] bg-blue-600 text-white"
+                    : "mr-auto max-w-[95%] bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                 )}
               >
-                {message.content}
+                <div className="whitespace-pre-wrap leading-relaxed">
+                  {message.content}
+                </div>
               </div>
             ))}
             
             {isLoading && (
-              <div className="flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm bg-gray-100 dark:bg-gray-800">
+              <div className="mr-auto max-w-[75%] flex flex-col gap-2 rounded-lg px-3 py-2 text-sm bg-gray-100 dark:bg-gray-800">
                 <div className="flex items-center gap-2">
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  {t('chatbot.typing')}
+                  <span className="text-gray-600 dark:text-gray-300">{t('chatbot.typing')}</span>
                 </div>
               </div>
             )}
@@ -221,21 +225,21 @@ export default function Chatbot({ className }: ChatbotProps) {
 
         {/* Suggestions */}
         {messages.length <= 1 && suggestions.length > 0 && (
-          <div className="mb-3">
-            <p className="text-xs text-gray-600 mb-2">
+          <div className="mb-3 border-t pt-3">
+            <p className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">
               {t('chatbot.suggestions')}
             </p>
-            <div className="space-y-1">
+            <div className="space-y-1 max-h-24 overflow-y-auto">
               {suggestions.slice(0, 3).map((suggestion, index) => (
                 <Button
                   key={index}
                   onClick={() => sendMessage(suggestion)}
                   variant="outline"
                   size="sm"
-                  className="text-xs h-auto py-1 px-2 w-full text-left justify-start"
+                  className="text-xs h-auto py-2 px-3 w-full text-left justify-start border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-colors"
                   disabled={isLoading}
                 >
-                  {suggestion}
+                  <span className="truncate">{suggestion}</span>
                 </Button>
               ))}
             </div>
