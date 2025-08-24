@@ -8,11 +8,12 @@ services:
   build_command: |
     npm ci
     npm run build
-    echo "📦 Création du dossier public et copie des assets..."
-    mkdir -p public
-    cp -r dist/* public/ 2>/dev/null || echo "Build files copied"
-    cp -r attached_assets public/ 2>/dev/null || echo "Assets statiques copiés vers public"
-    echo "✅ Build et assets prêts dans public/"
+    echo "📦 Création du dossier server/public et copie des assets..."
+    mkdir -p server/public
+    cp -r dist/public/* server/public/ 2>/dev/null || echo "Build files copied to server/public"
+    cp -r attached_assets server/public/ 2>/dev/null || echo "Assets statiques copiés vers server/public"
+    ls -la server/public/
+    echo "✅ Build et assets prêts dans server/public/"
   run_command: npm start
   environment_slug: node-js
   instance_count: 1
