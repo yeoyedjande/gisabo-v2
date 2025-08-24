@@ -27,6 +27,11 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    // ✅ Ajouter ces options pour App Platform
+    rollupOptions: {
+      cache: false
+    },
+    write: true
   },
   server: {
     fs: {
@@ -34,4 +39,8 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
+  // ✅ Ajouter ces nouvelles sections
+  optimizeDeps: {
+    disabled: process.env.NODE_ENV === "production"
+  }
 });
