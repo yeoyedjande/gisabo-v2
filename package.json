@@ -5,11 +5,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
-    "start": "npm run build && NODE_ENV=production node ./dist/index.js",
-    "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
-    "build:client": "vite build",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "if [ \"$NODE_ENV\" = \"production\" ]; then echo 'Skipping Vite in production'; else vite build; fi",
     "build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
-    "db:push": "drizzle-kit push",
+    "start": "NODE_ENV=production node ./dist/index.js",
     "migrate": "node migrate.js"
   },
   "dependencies": {
